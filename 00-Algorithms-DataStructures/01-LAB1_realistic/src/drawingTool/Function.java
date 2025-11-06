@@ -65,6 +65,7 @@ public class Function {
     }
     
     private void drawDataSeries(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
+    	
         List<Double> timestamps = sensorData.getTimestamps();
         List<Double> values = sensorData.getColumnData(columnName);
         
@@ -118,6 +119,7 @@ public class Function {
     }
     
     private void drawExtremas(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
+    	
         List<Double> timestamps = sensorData.getTimestamps();
         List<Double> values = sensorData.getColumnData(columnName);
         
