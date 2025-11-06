@@ -25,11 +25,9 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
 
     private ButtonPanel buttonPanel;
     private ComboBoxPanel comboBoxPanel;
+    private CheckBoxPanel checkBoxPanel;
 
     private JSlider scaleSlider = new JSlider(1, 100, 5);
-    private JCheckBox showZerosCheckBox = new JCheckBox("Show Zeros");
-    private JCheckBox showExtremasCheckBox = new JCheckBox("Show Extremas");
-    private JCheckBox showHistogramCheckBox = new JCheckBox("Histogram Mode");
 
     private DrawingJPanel drawingJPanel;
     private int basicScale = 10;
@@ -69,18 +67,9 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
         analysisLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(analysisLabel);
         add(Box.createVerticalStrut(10));
-
-        showZerosCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(showZerosCheckBox);
-        add(Box.createVerticalStrut(5));
-
-        showExtremasCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(showExtremasCheckBox);
-        add(Box.createVerticalStrut(5));
-
-        showHistogramCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(showHistogramCheckBox);
-        add(Box.createVerticalStrut(20));
+        
+        checkBoxPanel = new CheckBoxPanel();
+        add(checkBoxPanel);
 
         JLabel sliderLabel = new JLabel("Zoom Slider");
         sliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -105,9 +94,10 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
         comboBoxPanel.getComboBox2().addActionListener(this);
         comboBoxPanel.getComboBox3().addActionListener(this);
         
-        showZerosCheckBox.addActionListener(this);
-        showExtremasCheckBox.addActionListener(this);
-        showHistogramCheckBox.addActionListener(this);
+        checkBoxPanel.getZerosBox().addActionListener(this);
+        checkBoxPanel.getExtremasBox().addActionListener(this);
+        checkBoxPanel.getHistogramBox().addActionListener(this);
+        
         scaleSlider.addChangeListener(this);
     }
     
@@ -201,16 +191,16 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
             drawingJPanel.getScene().rescaleToSelectedData();
             drawingJPanel.repaint();
         } 
-        else if (source == showZerosCheckBox) {
-            drawingJPanel.getScene().getFunction().setShowZeros(showZerosCheckBox.isSelected());
+        else if (source == checkBoxPanel.getZerosBox()) {
+            drawingJPanel.getScene().getFunction().setShowZeros(checkBoxPanel.getZerosBox().isSelected());
             drawingJPanel.repaint();
         } 
-        else if (source == showExtremasCheckBox) {
-            drawingJPanel.getScene().getFunction().setShowExtremas(showExtremasCheckBox.isSelected());
+        else if (source == checkBoxPanel.getExtremasBox()) {
+            drawingJPanel.getScene().getFunction().setShowExtremas(checkBoxPanel.getExtremasBox().isSelected());
             drawingJPanel.repaint();
         } 
-        else if (source == showHistogramCheckBox) {
-            drawingJPanel.getScene().getFunction().setShowHistogram(showHistogramCheckBox.isSelected());
+        else if (source == checkBoxPanel.getHistogramBox()) {
+            drawingJPanel.getScene().getFunction().setShowHistogram(checkBoxPanel.getHistogramBox().isSelected());
             drawingJPanel.repaint();
         }
     }

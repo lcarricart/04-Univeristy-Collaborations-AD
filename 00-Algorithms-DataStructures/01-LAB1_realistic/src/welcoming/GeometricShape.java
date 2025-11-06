@@ -1,4 +1,4 @@
-package background;
+package welcoming;
 
 import java.awt.Color;
 import java.awt.Rectangle;

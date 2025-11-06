@@ -39,6 +39,7 @@ public class DataFileWorker {
         StringBuilder lineBuffer = new StringBuilder();
     
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        	
             String currentLine;
             while ((currentLine = reader.readLine()) != null) {
                 
@@ -50,7 +51,7 @@ public class DataFileWorker {
 
                 if (trimmedLine.matches("^\\d+.*")) {
                     if (lineBuffer.length() > 0) {
-                        parseLineData(lineBuffer.toString(), sensorData);
+                        assignData(lineBuffer.toString(), sensorData);
                     }
                     
                     lineBuffer.setLength(0);
@@ -61,7 +62,7 @@ public class DataFileWorker {
             }
             
             if (lineBuffer.length() > 0) {
-                parseLineData(lineBuffer.toString(), sensorData);
+                assignData(lineBuffer.toString(), sensorData);
             }
 
         } catch (IOException e) {
@@ -73,27 +74,22 @@ public class DataFileWorker {
         return sensorData;
     }
 
-    private void parseLineData(String line, SensorData sensorData) {
-        try {
-            String[] parts = line.split(",");
+    private void assignData(String line, SensorData sensorData) {
+    	
+        String[] parts = line.split(",");
 
-            if (parts.length == 8) {
-                double timestamp = Double.parseDouble(parts[0].trim());
-                double accX = Double.parseDouble(parts[1].trim());
-                double accY = Double.parseDouble(parts[2].trim());
-                double accZ = Double.parseDouble(parts[3].trim());
-                double gyroX = Double.parseDouble(parts[4].trim());
-                double gyroY = Double.parseDouble(parts[5].trim());
-                double gyroZ = Double.parseDouble(parts[6].trim());
-                double temperature = Double.parseDouble(parts[7].trim());
-                
-                sensorData.addDataPoint(timestamp, accX, accY, accZ, gyroX, gyroY, gyroZ, temperature);
-            } else {
-                System.err.println("Skipping malformed line (parts=" + parts.length + "): " + line);
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Skipping bad line (NumberFormat): " + line);
-            e.printStackTrace();
-        }
+        if (parts.length == 8) {
+        	
+            double timestamp = Double.parseDouble(parts[0].trim());
+            double accX = Double.parseDouble(parts[1].trim());
+            double accY = Double.parseDouble(parts[2].trim());
+            double accZ = Double.parseDouble(parts[3].trim());
+            double gyroX = Double.parseDouble(parts[4].trim());
+            double gyroY = Double.parseDouble(parts[5].trim());
+            double gyroZ = Double.parseDouble(parts[6].trim());
+            double temperature = Double.parseDouble(parts[7].trim());
+            
+            sensorData.addDataPoint(timestamp, accX, accY, accZ, gyroX, gyroY, gyroZ, temperature);
+         }
     }
 }
