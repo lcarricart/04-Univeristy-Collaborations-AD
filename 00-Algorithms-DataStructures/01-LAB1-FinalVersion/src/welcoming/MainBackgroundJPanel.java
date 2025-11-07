@@ -1,3 +1,19 @@
+/*******************************************************************************************************************
+ * Objective of the class: Decorative background panel displaying animated geometric shapes for welcome screen.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- None (only overrides paintComponent for custom rendering)
+ *******************************************************************************************************************/
+
 package welcoming;
 
 import java.awt.Color;
@@ -14,13 +30,11 @@ public class MainBackgroundJPanel extends JPanel {
     private final int X_MARGIN = 0;
     private final int Y_MARGIN = 1900;
     private final int GRID_SPACING = 50;
-    
     private int showSignals = 1;              
     private GeometricShape myGeometricShape;   //aggregate
 
     public MainBackgroundJPanel() {
         super();
-        
         initialization();
     }
 
@@ -39,8 +53,7 @@ public class MainBackgroundJPanel extends JPanel {
         
         myGeometricShape = new GeometricShape(getWidth(), SIGNAL_ORANGE);
         
-        for (int i = 0; i < Y_MARGIN; i = i + 500)
-        {
+        for (int i = 0; i < Y_MARGIN; i = i + 500) {
         	myGeometricShape.draw(X_MARGIN, i, showSignals);
         }
     }

@@ -1,3 +1,28 @@
+/*******************************************************************************************************************
+ * Objective of the class: Manages the viewport transformation and coordinates beetween data space and screen space.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- setScale() - Adjusts the zoom scale factor
+ * 	- getScale() - Returns current scale value
+ * 	- draw() - Renders background and function plots to the graphics context
+ * 	- zoomTo() - Zooms into a specified rectangular area
+ * 	- sliderZoom() - Applies zoom based on slider position
+ * 	- resetZoom() - Restores original viewport settings
+ * 	- setSensorData() - Loads new sensor data and auto-fits viewport
+ * 	- getSensorData() - Returns currently loaded data
+ * 	- getFunction() - Returns the Function object for plot configuration
+ * 	- rescaleToSelectedData() - Adjusts viewport to fit only selected data columns
+ *******************************************************************************************************************/
+
 package layout;
 
 import drawingTool.Function;
@@ -9,7 +34,6 @@ import java.awt.geom.Rectangle2D;
 import drawingTool.Drawing;
 
 public class Scene {
-
     private Background background;
     private Function function;
     private int width, height; // Careful, this looks like a bad future of size control. Integrate into scale
@@ -46,7 +70,7 @@ public class Scene {
     }
     
     public void zoomTo(Rectangle selectionArea) {
-        // FIX #2: Ensure the selection has a valid size to prevent division by zero.
+        // Ensures the selection has a valid size to prevent division by zero.
         if (selectionArea != null && selectionArea.width > 0 && selectionArea.height > 0) {
         	double oldX = currentViewPoint.getX();
             double oldY = currentViewPoint.getY();

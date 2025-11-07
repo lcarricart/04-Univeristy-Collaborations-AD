@@ -1,3 +1,19 @@
+/*******************************************************************************************************************
+ * Objective of the class: Handles file selection and parsing of sensor data from various file formats.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- loadData() - Opens file chooser dialog and loads selected data file into SensorData object
+ *******************************************************************************************************************/
+
 package files;
 
 import java.io.BufferedReader;
@@ -11,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter; 
 
 public class DataFileWorker {
-
     public SensorData loadData(Component parent) {
         
         JFileChooser fileChooser = new JFileChooser();
@@ -27,7 +42,8 @@ public class DataFileWorker {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            return parseFileToSensorData(selectedFile, parent);
+            SensorData returnValue = parseFileToSensorData(selectedFile, parent);
+            return returnValue;
         }
         
         return null;
@@ -49,16 +65,9 @@ public class DataFileWorker {
                     continue;
                 }
 
-                if (trimmedLine.matches("^\\d+.*")) {
-                    if (lineBuffer.length() > 0) {
-                        assignData(lineBuffer.toString(), sensorData);
-                    }
-                    
-                    lineBuffer.setLength(0);
-                    lineBuffer.append(trimmedLine);
-                } else {
-                    lineBuffer.append(trimmedLine);
-                }
+                assignData(lineBuffer.toString(), sensorData);
+                lineBuffer.setLength(0);
+                lineBuffer.append(trimmedLine);
             }
             
             if (lineBuffer.length() > 0) {

@@ -1,7 +1,24 @@
+/*******************************************************************************************************************
+ * Objective of the class: Main configuration panel that aggregates all control components and handles user events.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- setSliderEnabled() - Enables or disables the zoom slider based on zoom mode
+ * 	- actionPerformed() - Handles all button and combo box events
+ * 	- stateChanged() - Responds to slider value changes for zoom adjustement
+ *******************************************************************************************************************/
+
 package gui;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
@@ -9,9 +26,6 @@ import javax.swing.event.ChangeListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -20,17 +34,12 @@ import files.DataFileWorker;
 import files.SensorData;
 
 public class ConfigurationJPanel extends JPanel implements ChangeListener, ActionListener {
-
     private static final long serialVersionUID = 1L;
-
     private ButtonPanel buttonPanel;
     private ComboBoxPanel comboBoxPanel;
     private CheckBoxPanel checkBoxPanel;
-
-    private JSlider scaleSlider = new JSlider(1, 100, 5);
-
     private DrawingJPanel drawingJPanel;
-    private int basicScale = 10;
+    private JSlider scaleSlider = new JSlider(1, 100, 5);
 
     public ConfigurationJPanel(DrawingJPanel drawingJPanel) {
         super();
@@ -103,16 +112,6 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
     
     public void setSliderEnabled(boolean isEnabled) {
         scaleSlider.setEnabled(isEnabled);
-    }
-
-    private void increaseBasicScale() {
-        basicScale += 10;
-    }
-
-    private void decreaseBasicScale() {
-        if (basicScale > 10) {
-            basicScale -= 10;
-        }
     }
 
     @Override

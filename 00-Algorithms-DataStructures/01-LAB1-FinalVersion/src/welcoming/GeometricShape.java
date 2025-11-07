@@ -1,3 +1,19 @@
+/*******************************************************************************************************************
+ * Objective of the class: Renders decorative geometric shapes with signal waves for welcome screen background.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- draw() - Generates and draws random positioned geometric shapes with signal wave decorations
+ *******************************************************************************************************************/
+
 package welcoming;
 
 import java.awt.Color;

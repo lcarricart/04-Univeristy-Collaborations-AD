@@ -1,3 +1,25 @@
+/*******************************************************************************************************************
+ * Objective of the class: Handles rendering of sensor data plots with analysis features like zeros and extremas.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- draw() - Main rendering method that plots selected data series
+ * 	- setSensorData() - Assigns data source for plotting
+ * 	- setSelectedColumn1/2/3() - Selects which data columns to visualize
+ * 	- setShowZeros() - Toggles display of zero crossing markers
+ * 	- setShowExtremas() - Toggles display of local minima and maxima
+ * 	- setShowHistogram() - Switches beetween line and histogram rendering mode
+ * 	- getSelectedColumn1/2/3() - Returns currently selected column names
+ *******************************************************************************************************************/
+
 package drawingTool;
 
 import java.awt.Color;
@@ -25,6 +47,7 @@ public class Function {
             // Draw sensor data
             if (selectedColumn1 != null) {
                 pen.setColor(Color.BLUE);
+                // delegating to a helper method
                 drawDataSeries(pen, viewPoint, panelWidth, panelHeight, selectedColumn1);
             }
             if (selectedColumn2 != null) {
@@ -38,6 +61,7 @@ public class Function {
             
             // Draw analysis features
             if (showZeros && selectedColumn1 != null) {
+            	// delegating to a helper method
                 drawZeros(pen, viewPoint, panelWidth, panelHeight, selectedColumn1);
             }
             if (showExtremas && selectedColumn1 != null) {
@@ -47,25 +71,20 @@ public class Function {
         // No default example data - screen stays empty until data is imported
     }
 
-    /**
-     * Converts a data X-coordinate to a screen pixel X-coordinate.
-     */
+    // Converts a data X-coordinate to a screen pixel X-coordinate.
     private int toScreenX(double dataX, Rectangle2D.Double viewPoint, int panelWidth) {
         double xRange = viewPoint.getWidth();
         return (int) (panelWidth * (dataX - viewPoint.getX()) / xRange);
     }
 
-    /**
-     * Converts a data Y-coordinate to a screen pixel Y-coordinate.
-     * (Handles the inverted Y-axis in Swing)
-     */
+    // Converts a data Y-coordinate to a screen pixel Y-coordinate; handles the inverted Y-axis in Swing
     private int toScreenY(double dataY, Rectangle2D.Double viewPoint, int panelHeight) {
         double yRange = viewPoint.getHeight();
         return (int) (panelHeight * (1 - ((dataY - viewPoint.getY()) / yRange)));
     }
     
     private void drawDataSeries(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
-    	
+    	// delegating to another helper method
         List<Double> timestamps = sensorData.getTimestamps();
         List<Double> values = sensorData.getColumnData(columnName);
         
