@@ -25,6 +25,7 @@ package drawingTool;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 import files.SensorData;
 
@@ -85,8 +86,8 @@ public class Function {
     
     private void drawDataSeries(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
     	// delegating to another helper method
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+        ArrayList<Double> timestamps = sensorData.getTimestamps();
+        ArrayList<Double> values = sensorData.getColumnData(columnName);
         
         if (timestamps.isEmpty() || values.isEmpty()) return;
         
@@ -111,8 +112,8 @@ public class Function {
     }
     
     private void drawZeros(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+    	ArrayList<Double> timestamps = sensorData.getTimestamps();
+        ArrayList<Double> values = sensorData.getColumnData(columnName);
         
         pen.setColor(Color.ORANGE);
         
@@ -139,8 +140,8 @@ public class Function {
     
     private void drawExtremas(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
     	
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+    	ArrayList<Double> timestamps = sensorData.getTimestamps();
+    	ArrayList<Double> values = sensorData.getColumnData(columnName);
         
         if (values.size() < 3) return;
         

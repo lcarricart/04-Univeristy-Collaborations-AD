@@ -136,7 +136,7 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
                     drawingJPanel.getScene().getFunction().setSelectedColumn1(data.getDataColumnNames()[0]);
                 }
 
-                System.out.println("Imported " + data.getSize() + " data points)");
+                System.out.println("Imported " + data.getSize() + " data points");
                 drawingJPanel.requestFocusInWindow();
                 drawingJPanel.repaint();
             }
