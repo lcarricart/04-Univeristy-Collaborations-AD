@@ -1,3 +1,19 @@
+/*******************************************************************************************************************
+ * Objective of the class: Welcome screen content panel with interactive buttons and text fields for user feedback.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- None (all event handlers are defined as anonymous inner classes)
+ *******************************************************************************************************************/
+
 package welcoming;
 
 import java.awt.Color;
@@ -25,7 +41,6 @@ public class WelcomeMenuJPanel extends JPanel {
     private final Font FIELD_FONT  = new Font("Lucida Bright", Font.PLAIN, 14);
     private final Font BUTTON_FONT = new Font("Lucida Bright", Font.PLAIN, 14);
 
-	
     public WelcomeMenuJPanel(MainWelcomeJFrame grandParentFrame) {
     	super();	
     	this.granParentFrame = grandParentFrame;

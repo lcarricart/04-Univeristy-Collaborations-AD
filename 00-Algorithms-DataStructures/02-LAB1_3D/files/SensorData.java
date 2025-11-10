@@ -1,19 +1,39 @@
+/*******************************************************************************************************************
+ * Objective of the class: Data container for storing and retrieving multi-column sensor telemetry measurements.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- addDataPoint() - Adds a new row of sensor readings with timestamp
+ * 	- getTimestamps() - Returns list of all timestamps
+ * 	- getColumnData() - Retrieves data for a specific column by name
+ * 	- getColumnNames() - Returns array of all column names including timestamp
+ * 	- getDataColumnNames() - Returns array of data column names excluding timestamp
+ * 	- getSize() - Returns number of data points stored
+ * 	- isEmpty() - Checks if data container is empty
+ * 	- clear() - Removes all stored data
+ *******************************************************************************************************************/
+
 package files;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SensorData {
-	
-	private List<Double> timestamps;
-	private List<Double> accX;
-	private List<Double> accY;
-	private List<Double> accZ;
-	private List<Double> gyroX;
-	private List<Double> gyroY;
-	private List<Double> gyroZ;
-	private List<Double> temperature;
-	
+	private ArrayList<Double> timestamps;
+	private ArrayList<Double> accX;
+	private ArrayList<Double> accY;
+	private ArrayList<Double> accZ;
+	private ArrayList<Double> gyroX;
+	private ArrayList<Double> gyroY;
+	private ArrayList<Double> gyroZ;
+	private ArrayList<Double> temperature;
 	private String[] columnNames = {"timestamp", "accX", "accY", "accZ", "gyroX", "gyroY", "gyroZ", "temperature"};
 	
 	public SensorData() {
@@ -38,11 +58,11 @@ public class SensorData {
 		this.temperature.add(temperature);
 	}
 	
-	public List<Double> getTimestamps() {
+	public ArrayList<Double> getTimestamps() {
 		return timestamps;
 	}
 	
-	public List<Double> getColumnData(String columnName) {
+	public ArrayList<Double> getColumnData(String columnName) {
 		switch (columnName) {
 			case "timestamp": return timestamps;
 			case "accX": return accX;
@@ -66,6 +86,7 @@ public class SensorData {
 		return dataColumns;
 	}
 	
+	// Only used to print in the Command Window how many data points were imported (debugging purposes)
 	public int getSize() {
 		return timestamps.size();
 	}

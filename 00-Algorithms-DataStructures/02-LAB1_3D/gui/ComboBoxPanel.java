@@ -1,8 +1,26 @@
+/*******************************************************************************************************************
+ * Objective of the class: Panel with dropdown menus for selecting which sensor data columns to plot.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- populateComboBoxes() - Fills combo boxes with available data column names from imported file
+ * 	- getComboBox1() - Returns first combo box for plot selection
+ * 	- getComboBox2() - Returns second combo box for plot selection
+ * 	- getComboBox3() - Returns third combo box for plot selection
+ *******************************************************************************************************************/
+
 package gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -10,13 +28,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ComboBoxPanel extends JPanel {
-
     private static final long serialVersionUID = 1L;
-
     private String[] options = {"Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4"};
     private String[] options2 = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
     private String[] options3 = {"Data 1", "Data 2", "Data 3"};
-
     private JComboBox<String> comboBox = new JComboBox<>(options);
     private JComboBox<String> comboBox2 = new JComboBox<>(options2);
     private JComboBox<String> comboBox3 = new JComboBox<>(options3);

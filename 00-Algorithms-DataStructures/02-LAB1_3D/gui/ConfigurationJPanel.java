@@ -1,3 +1,21 @@
+/*******************************************************************************************************************
+ * Objective of the class: Main configuration panel that aggregates all control components and handles user events.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- setSliderEnabled() - Enables or disables the zoom slider based on zoom mode
+ * 	- actionPerformed() - Handles all button and combo box events
+ * 	- stateChanged() - Responds to slider value changes for zoom adjustement
+ *******************************************************************************************************************/
+
 package gui;
 
 import java.awt.Component;

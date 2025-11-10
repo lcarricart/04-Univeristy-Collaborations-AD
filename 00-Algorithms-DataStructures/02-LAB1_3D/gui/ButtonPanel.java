@@ -1,3 +1,20 @@
+/*******************************************************************************************************************
+ * Objective of the class: Panel containing action buttons for file import and view reset functionality.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- getResetView() - Returns the reset view button for event listener attachment
+ * 	- getImportBtn() - Returns the import button for file selection functionality
+ *******************************************************************************************************************/
+
 package gui;
 
 import java.awt.Component;

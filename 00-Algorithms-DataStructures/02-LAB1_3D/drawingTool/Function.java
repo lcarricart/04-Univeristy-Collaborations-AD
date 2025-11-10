@@ -1,8 +1,31 @@
+/*******************************************************************************************************************
+ * Objective of the class: Handles rendering of sensor data plots with analysis features like zeros and extremas.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- draw() - Main rendering method that plots selected data series
+ * 	- setSensorData() - Assigns data source for plotting
+ * 	- setSelectedColumn1/2/3() - Selects which data columns to visualize
+ * 	- setShowZeros() - Toggles display of zero crossing markers
+ * 	- setShowExtremas() - Toggles display of local minima and maxima
+ * 	- setShowHistogram() - Switches beetween line and histogram rendering mode
+ * 	- getSelectedColumn1/2/3() - Returns currently selected column names
+ *******************************************************************************************************************/
+
 package drawingTool;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 import files.SensorData;
 
@@ -25,6 +48,7 @@ public class Function {
             // Draw sensor data
             if (selectedColumn1 != null) {
                 pen.setColor(Color.BLUE);
+                // delegating to a helper method
                 drawDataSeries(pen, viewPoint, panelWidth, panelHeight, selectedColumn1);
             }
             if (selectedColumn2 != null) {
@@ -38,6 +62,7 @@ public class Function {
             
             // Draw analysis features
             if (showZeros && selectedColumn1 != null) {
+            	// delegating to a helper method
                 drawZeros(pen, viewPoint, panelWidth, panelHeight, selectedColumn1);
             }
             if (showExtremas && selectedColumn1 != null) {
@@ -47,27 +72,22 @@ public class Function {
         // No default example data - screen stays empty until data is imported
     }
 
-    /**
-     * Converts a data X-coordinate to a screen pixel X-coordinate.
-     */
+    // Converts a data X-coordinate to a screen pixel X-coordinate.
     private int toScreenX(double dataX, Rectangle2D.Double viewPoint, int panelWidth) {
         double xRange = viewPoint.getWidth();
         return (int) (panelWidth * (dataX - viewPoint.getX()) / xRange);
     }
 
-    /**
-     * Converts a data Y-coordinate to a screen pixel Y-coordinate.
-     * (Handles the inverted Y-axis in Swing)
-     */
+    // Converts a data Y-coordinate to a screen pixel Y-coordinate; handles the inverted Y-axis in Swing
     private int toScreenY(double dataY, Rectangle2D.Double viewPoint, int panelHeight) {
         double yRange = viewPoint.getHeight();
         return (int) (panelHeight * (1 - ((dataY - viewPoint.getY()) / yRange)));
     }
     
     private void drawDataSeries(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
-    	
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+    	// delegating to another helper method
+        ArrayList<Double> timestamps = sensorData.getTimestamps();
+        ArrayList<Double> values = sensorData.getColumnData(columnName);
         
         if (timestamps.isEmpty() || values.isEmpty()) return;
         
@@ -92,21 +112,25 @@ public class Function {
     }
     
     private void drawZeros(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+    	ArrayList<Double> timestamps = sensorData.getTimestamps();
+        ArrayList<Double> values = sensorData.getColumnData(columnName);
         
+        if (timestamps.isEmpty() || values.isEmpty()) return;
+
         pen.setColor(Color.ORANGE);
         
-        // Find zero crossings
         for (int i = 0; i < values.size() - 1; i++) {
             double v1 = values.get(i);
             double v2 = values.get(i + 1);
             
-            // Check if sign changes (zero crossing)
-            if ((v1 <= 0 && v2 >= 0) || (v1 >= 0 && v2 <= 0)) {
-                // Linear interpolation to find approximate zero position
+            // Check for a clean sign change (interpolation case)
+            if ((v1 < 0 && v2 > 0) || (v1 > 0 && v2 < 0)) {
+                
                 double t1 = timestamps.get(i);
                 double t2 = timestamps.get(i + 1);
+                
+                // This is now safe, as v1 and v2 have different signs,
+                // so (v2 - v1) can never be zero.
                 double zeroT = t1 + (t2 - t1) * (-v1) / (v2 - v1);
                 
                 int screenX = toScreenX(zeroT, viewPoint, panelWidth);
@@ -114,14 +138,31 @@ public class Function {
                 
                 // Draw circle at zero crossing
                 pen.fillOval(screenX - 4, screenY - 4, 8, 8);
+                
+            } 
+            // Handle the case where a point is *exactly* zero
+            else if (v1 == 0) {
+                int screenX = toScreenX(timestamps.get(i), viewPoint, panelWidth);
+                int screenY = toScreenY(0, viewPoint, panelHeight);
+                
+                // Draw circle at zero crossing
+                pen.fillOval(screenX - 4, screenY - 4, 8, 8);
             }
+        }
+        
+        // Check the very last point in the data
+        if (!values.isEmpty() && values.get(values.size() - 1) == 0) {
+        	int i = values.size() - 1;
+        	int screenX = toScreenX(timestamps.get(i), viewPoint, panelWidth);
+            int screenY = toScreenY(0, viewPoint, panelHeight);
+            pen.fillOval(screenX - 4, screenY - 4, 8, 8);
         }
     }
     
     private void drawExtremas(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
     	
-        List<Double> timestamps = sensorData.getTimestamps();
-        List<Double> values = sensorData.getColumnData(columnName);
+    	ArrayList<Double> timestamps = sensorData.getTimestamps();
+    	ArrayList<Double> values = sensorData.getColumnData(columnName);
         
         if (values.size() < 3) return;
         

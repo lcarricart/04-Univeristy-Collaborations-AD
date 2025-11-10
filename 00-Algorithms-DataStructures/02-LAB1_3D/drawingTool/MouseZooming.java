@@ -1,17 +1,33 @@
+/*******************************************************************************************************************
+ * Objective of the class: Mouse event handler for implementing rectangular zoom selection functionality.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- mousePressed() - Captures starting point of zoom selection
+ * 	- mouseDragged() - Updates selection rectangle as mouse moves
+ * 	- mouseReleased() - Applies zoom to selected area and disables slider
+ * 	- drawRectangle() - Renders the selection rectangle overlay
+ *******************************************************************************************************************/
+
 package drawingTool;
 
 import gui.DrawingJPanel;
 import gui.DrawingJFrame;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MouseZooming extends MouseAdapter {
-
     private Point startPoint;
     private Rectangle selectionRectangle;
     private final DrawingJPanel drawingJPanel;

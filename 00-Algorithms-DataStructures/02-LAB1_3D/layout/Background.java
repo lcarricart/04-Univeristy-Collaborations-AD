@@ -1,10 +1,25 @@
+/*******************************************************************************************************************
+ * Objective of the class: Draws coordinate system axes with dynamic tick marks and labels adapted to current zoom.
+ *******************************************************************************************************************
+ * Context: This is part of a major programming project, where live telemetry is transmitted to a PC, to be later
+   manipulated and displayed with a Java GUI application.
+ *******************************************************************************************************************
+ * Authors: 
+ * 	- Luciano Carricart, https://github.com/lcarricart/
+ * 	- Georgii Molyboga, https://github.com/Georgemolyboga/
+ * Status: Information Engineering students, HAW Hamburg, Germany.
+ * Date: November 2024
+ *******************************************************************************************************************
+ * Public methods:
+ * 	- draw() - Renders the coordinate axes and markings based on current viewport
+ *******************************************************************************************************************/
+
 package layout;
 
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 public class Background {
-
     private int height, width;
     private static final int TICK_SIZE = 5;
 
