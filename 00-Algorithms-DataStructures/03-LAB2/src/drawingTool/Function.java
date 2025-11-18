@@ -26,17 +26,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import files.SensorData;
+import sorting.QuickSort;
 
 public class Function {
     private SensorData sensorData;
+    private QuickSort quickSort;
     private String selectedColumn1;
     private String selectedColumn2;
     private String selectedColumn3;
     private boolean showZeros = false;
     private boolean showExtremas = false;
     private boolean showHistogram = false;
+    private boolean valuesSorted = false;
 
     public Function() {
         
@@ -68,11 +72,15 @@ public class Function {
             if (showExtremas && selectedColumn1 != null) {
                 drawExtremas(pen, viewPoint, panelWidth, panelHeight, selectedColumn1);
             }
+            
+            if (valuesSorted && quickSort != null && !quickSort.isEmpty()) {
+            	drawSortedFunction(pen, viewPoint, panelWidth, panelHeight, quickSort.getSorted());
+            }
         }
         // No default example data - screen stays empty until data is imported
     }
 
-    // Converts a data X-coordinate to a screen pixel X-coordinate.
+	// Converts a data X-coordinate to a screen pixel X-coordinate.
     private int toScreenX(double dataX, Rectangle2D.Double viewPoint, int panelWidth) {
         double xRange = viewPoint.getWidth();
         return (int) (panelWidth * (dataX - viewPoint.getX()) / xRange);
@@ -82,6 +90,30 @@ public class Function {
     private int toScreenY(double dataY, Rectangle2D.Double viewPoint, int panelHeight) {
         double yRange = viewPoint.getHeight();
         return (int) (panelHeight * (1 - ((dataY - viewPoint.getY()) / yRange)));
+    }
+    
+    private void drawSortedFunction(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, ArrayList<Double> sorted) {
+        pen.setColor(Color.MAGENTA);
+        int n = sorted.size();
+        if (n == 0) return; 
+        
+        ArrayList<Double> timestamps = sensorData.getTimestamps();
+        if (timestamps.isEmpty()) return;
+        double minTime = Collections.min(timestamps);
+        double maxTime = Collections.max(timestamps);
+        double timeRange = maxTime - minTime;
+        
+        int[] screenXPoints = new int[n];
+        int[] screenYPoints = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            // Map index to the time range of the original data
+            double x = minTime + timeRange * i / (n - 1.0);
+            screenXPoints[i] = toScreenX(x, viewPoint, panelWidth);
+            screenYPoints[i] = toScreenY(sorted.get(i), viewPoint, panelHeight);
+        }
+        
+        pen.drawPolyline(screenXPoints, screenYPoints, n);
     }
     
     private void drawDataSeries(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight, String columnName) {
@@ -195,6 +227,13 @@ public class Function {
         this.showHistogram = show;
     }
     
+    public void setQuickSort(QuickSort quickSort) {
+        this.quickSort = quickSort;
+    }
+    
+    public void isSorted(boolean show) {
+        this.valuesSorted = show;
+    }
     public String getSelectedColumn1() {
         return selectedColumn1;
     }

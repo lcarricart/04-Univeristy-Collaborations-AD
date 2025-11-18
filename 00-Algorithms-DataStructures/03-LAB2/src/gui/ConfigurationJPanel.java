@@ -54,7 +54,6 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
 
     private DrawingJPanel drawingJPanel;
     private QuickSort quickSort;
-    private int basicScale = 10;
 
     public ConfigurationJPanel(DrawingJPanel drawingJPanel, QuickSort quickSort) {
         super();
@@ -195,7 +194,11 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
         		if (index - 1 < columns.length) {
         			quickSort.setSortData(columns[index - 1]);
         		}
-        		quickSort.Sort();
+        		quickSort.sort();
+        		
+        		drawingJPanel.getScene().getFunction().setQuickSort(quickSort);
+        		drawingJPanel.getScene().getFunction().isSorted(true);
+                drawingJPanel.repaint();
         	}
         	else {
         		JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Please import/choose sensor data first.", "No Data", JOptionPane.INFORMATION_MESSAGE);

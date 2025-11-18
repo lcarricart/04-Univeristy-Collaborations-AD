@@ -97,8 +97,13 @@ public class Scene {
 
         double newWidth = initialViewPoint.width / scaleFactor;
         double newHeight = initialViewPoint.height / scaleFactor;
-        double newX = -newWidth / 2;
-        double newY = -newHeight / 2;
+        
+        // Calculate current center
+        double centerX = currentViewPoint.getCenterX();
+        double centerY = currentViewPoint.getCenterY();
+        
+        double newX = centerX - newWidth / 2;
+        double newY = centerY - newHeight / 2;
         
         this.currentViewPoint = new Rectangle2D.Double(newX, newY, newWidth, newHeight);
     }
