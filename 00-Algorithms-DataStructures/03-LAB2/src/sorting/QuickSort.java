@@ -1,10 +1,6 @@
 package sorting;
 
-import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-
-import javax.swing.JComboBox;
 
 import files.SensorData;
 
@@ -13,53 +9,57 @@ public class QuickSort {
 	private SensorData sensorData;
 	private ArrayList<Double> values;
 	private ArrayList<Double> sorted;
-	private int swapCount = 0;
-    private int comparisonCount = 0;
+	private int swapCount, comparisonCount;
 	
-	public void sort() {
-		
+	public void start() {
 		if (values != null && !values.isEmpty()) {
 			sorted = new ArrayList<>(values);
-			
+
 			swapCount = 0;
 			comparisonCount = 0;
 			
-			quickSortRecursive(0, sorted.size() - 1);
-	        
-	        printResults();
+			sort(0, sorted.size() - 1);
+			printResults();
 		}
 	}
 	
-	private void quickSortRecursive(int low, int high) {
-		if (low < high) {
-			// partitionIndex is where the pivot is currently placed
-			int partitionIndex = partition(low, high);
+	public void sort(int start, int end) {
+			
+			if (start < end) {
+				int median = moveTowards(start, end); 
 
-			// Recursively sort elements before and after partition
-			quickSortRecursive(low, partitionIndex - 1);
-			quickSortRecursive(partitionIndex + 1, high);
-		}
+				sort(start, median - 1);
+				sort(median, end);
+			}
 	}
+	
+	private int moveTowards(int start, int end) {
+		
+        Double median = sorted.get((start + end) / 2);
+        
+        int r = start;
+	    int l = end;
 
-	// Standard QuickSort Partition Scheme
-	private int partition(int low, int high) {
-	    Double pivot = sorted.get(high); // Take last element as pivot
-	    int i = (low - 1); 
-
-	    for (int j = low; j < high; j++) {
-	        comparisonCount++;
-	        // If current element is smaller than the pivot
-	        if (sorted.get(j) < pivot) {
-	            i++;
-	            swap(i, j);
-	            swapCount++;
+	    while (r <= l) {
+	    	
+	        while (sorted.get(r) < median) {
+            comparisonCount++;
+	            r++;
 	        }
-	    }
-	    // Place pivot in the correct slot
-	    swap(i + 1, high);
-	    swapCount++;
-	    
-	    return i + 1;
+
+	        while (sorted.get(l) > median) {
+	        	comparisonCount++;
+	            l--;
+	        }
+
+	        if (r <= l) {
+	            swap(r, l);
+                swapCount++;
+	            r++;
+	            l--;
+            }
+        }
+	    return r; 
 	}
 	
 	public void swap(int a, int b) {
@@ -70,20 +70,13 @@ public class QuickSort {
 		}
 	}
 	
-	public boolean isAscending(Double lower, Double bigger) {
-		if(lower > bigger) {
-			return false;
-		}
-		return true;
-	}
-	
 	private void printResults() {
 		
-		System.out.println("\nRaw Sample\n");
+		System.out.println("\nRaw Data\n");
 	    
 	    int count = 0;
 	    for (int i = 0; i < values.size(); i += 10) {
-	    		
+	        
 	        if (count != 0 && count % 10 == 0) {
 	            System.out.println(); 
 	        }
@@ -91,12 +84,12 @@ public class QuickSort {
 	        count++;
 	    }
 	    
-	    System.out.println("\n\nSorted Sample\n");
+	    System.out.println("\n\nSorted Data\n");
 	    
 	    count = 0;
 	    
 	    for (int i = 0; i < sorted.size(); i += 10) {
-	    		
+	        
 	        if (count != 0 && count % 10 == 0) {
 	            System.out.println(); 
 	        }
@@ -126,6 +119,6 @@ public class QuickSort {
 	}
 	
 	public boolean isEmpty() {
-		return sorted.isEmpty();
-	}
+        return sorted.isEmpty();
+    }
 }

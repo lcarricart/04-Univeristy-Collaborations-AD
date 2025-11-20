@@ -19,7 +19,6 @@
 package gui;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
@@ -27,9 +26,7 @@ import javax.swing.event.ChangeListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -54,11 +51,13 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
 
     private DrawingJPanel drawingJPanel;
     private QuickSort quickSort;
+    private SensorData sensorData;
 
-    public ConfigurationJPanel(DrawingJPanel drawingJPanel, QuickSort quickSort) {
+    public ConfigurationJPanel(DrawingJPanel drawingJPanel, QuickSort quickSort, SensorData sensorData) {
         super();
         this.drawingJPanel = drawingJPanel;
         this.quickSort = quickSort;
+        this.sensorData = sensorData;
         initialization();
     }
 
@@ -194,7 +193,7 @@ public class ConfigurationJPanel extends JPanel implements ChangeListener, Actio
         		if (index - 1 < columns.length) {
         			quickSort.setSortData(columns[index - 1]);
         		}
-        		quickSort.sort();
+        		quickSort.start();
         		
         		drawingJPanel.getScene().getFunction().setQuickSort(quickSort);
         		drawingJPanel.getScene().getFunction().isSorted(true);

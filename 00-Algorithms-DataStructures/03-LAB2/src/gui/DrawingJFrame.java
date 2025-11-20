@@ -21,12 +21,14 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import files.SensorData;
 import sorting.QuickSort;
 
 public class DrawingJFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private DrawingJPanel drawingJPanel;
     private ConfigurationJPanel configJPanel;
+    private SensorData sensorData = new SensorData();
     private QuickSort quickSort = new QuickSort();
 
     public DrawingJFrame(String title) {
@@ -46,7 +48,7 @@ public class DrawingJFrame extends JFrame {
         quickSort = new QuickSort();
         
         drawingJPanel = new DrawingJPanel(frameW, frameH, this);
-        configJPanel = new ConfigurationJPanel(drawingJPanel, quickSort);
+        configJPanel = new ConfigurationJPanel(drawingJPanel, quickSort, sensorData);
         
         getContentPane().add(drawingJPanel, BorderLayout.CENTER);
         getContentPane().add(configJPanel, BorderLayout.EAST);

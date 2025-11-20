@@ -42,10 +42,6 @@ public class Function {
     private boolean showHistogram = false;
     private boolean valuesSorted = false;
 
-    public Function() {
-        
-    }
-
     public void draw(Graphics pen, Rectangle2D.Double viewPoint, int panelWidth, int panelHeight) {
         
         if (sensorData != null && !sensorData.isEmpty()) {
