@@ -11,12 +11,19 @@ import java.util.Iterator;
  * Why constructing the key with a Tree and not with a root? Imagine I create an Iterator and start walking through 
  * the tree. Suddenly, someone else calls tree.insert() and adds a new node while you are walking. <The Crash> the 
  * iterator might get confused or point to a null value unexpectedly.
+ * 
+ * The Java Iterator interface looks something like this:
+ * public interface Iterator<T> {
+ * 		boolean hasNext();
+ *   	T next();        // Returns type T
+ *   	// other methods...
+ * }
  */
-public class TreeIterator<E> implements Iterator<Node> {
-	private SortedBinaryTree<Node> myTree;
-	private Node nextNode;
+public class TreeIterator<E extends Node<E>> implements Iterator<E> {
+	private SortedBinaryTree<E> myTree;
+	private E nextNode;
 	
-	public TreeIterator(SortedBinaryTree<Node> myTree) {
+	public TreeIterator(SortedBinaryTree<E> myTree) {
 		this.myTree = myTree;
 		this.nextNode = myTree.min();
 	}
@@ -31,15 +38,15 @@ public class TreeIterator<E> implements Iterator<Node> {
 	}
 
 	@Override
-	public Node next() {
-		Node result;
+	public E next() {
+		E result;
 		
 		if (this.hasNext()) {
 			result = nextNode;
 			nextNode = myTree.succ(nextNode);
 			return result;
 		} else {
-			return null;
+			return null; // The Java Iterator interface typically throws an Exception in this case I believe, but fine for us
 		}
 	}
 

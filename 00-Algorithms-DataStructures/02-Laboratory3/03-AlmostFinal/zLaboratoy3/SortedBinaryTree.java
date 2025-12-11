@@ -5,29 +5,29 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class SortedBinaryTree<E> { // Where should this E be defined within this class?
-	private Node root;
+public class SortedBinaryTree<E extends Node<E>> { // This is a type bound; we accept any Element that extends Node
+	private E root;
 	
-	public SortedBinaryTree(Node root) {
+	public SortedBinaryTree(E root) {
 		this.root = root;
 		root.setLeft(null);
 		root.setRight(null);
 		root.setParent(null);
 	}
 	
-	public Node getRoot() {
+	public E getRoot() {
 		return root;
 	}
 	
-	public void insert(Node newNode) {
+	public void insert(E newNode) {
 		insertRecursive(root, newNode); // Following structure: current, Node to be added, parent
 	}
 	
 	// Probably part of the iterator pattern, explained in the lecture slides "04 - Foundations of graph and tree structures"
-//	public TreeIterator iterator() {
-//		TreeIterator myIterator = new TreeIterator(this);
-//		return myIterator;
-//	}
+	public TreeIterator<E> iterator() {
+		TreeIterator<E> myIterator = new TreeIterator<E>(this);
+		return myIterator;
+	}
 	
 	public void printGrid() {
         if (root == null) {
@@ -65,7 +65,7 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
     }
 
     // Helper to fill the grid (recursively places nodes in the middle of their allocated window)
-    private void fillGrid(Node node, int level, int left, int right, List<List<String>> rows) {
+    private void fillGrid(E node, int level, int left, int right, List<List<String>> rows) {
         if (node == null) return;
 
         int mid = (left + right) / 2;
@@ -75,14 +75,14 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
         fillGrid(node.getRight(), level + 1, mid + 1, right, rows);
     }
 
-    private int getHeight(Node node) {
+    private int getHeight(E node) {
         if (node == null) return 0;
         return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
     }
    
 
-    public Node find(Node k) {
-        Node tempNode = root;
+    public E find(E k) {
+        E tempNode = root;
         
         while (tempNode != null) {
             if (k.getKey() == tempNode.getKey()) {
@@ -99,22 +99,22 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
     }
 
     
-    public Node succ(Node k) {
+    public E succ(E k) {
     	
-        Node node = find(k);
+        E node = find(k);
         if (node == null) {
         	return null;
         }
 
         if (node.getRight() != null) {
-            Node tempNode = node.getRight();
+            E tempNode = node.getRight();
             while (tempNode.getLeft() != null) {
                 tempNode = tempNode.getLeft();
             }
             return tempNode;
         }
 
-        Node parent = node.getParent();
+        E parent = node.getParent();
         while (parent != null && node == parent.getRight()) {
             node = parent;
             parent = parent.getParent();
@@ -122,8 +122,8 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
         return parent;
     }
 	
-	public Node min() {
-		Node tempNode = root;
+	public E min() {
+		E tempNode = root;
 		
 		while(tempNode.getLeft() != null) {
 			tempNode = tempNode.getLeft();
@@ -132,8 +132,8 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
 		return tempNode;
 	}
 
-	public Node max() {
-		Node tempNode = root;
+	public E max() {
+		E tempNode = root;
 		
 		while(tempNode.getRight() != null) {
 			tempNode = tempNode.getRight();
@@ -147,8 +147,8 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
 		 * To create a queue, you must choose a specific implementation (a concrete class that acts as the underlying data structure). Even if LinkedLists allow to access elements in the middle,
 		 * Java puts "blinders" on the variable and you won't be able to use something like .get(3)
 		 */
-		Queue<Node> queue = new LinkedList<>();
-		Node myNode;
+		Queue<E> queue = new LinkedList<>();
+		E myNode;
 		
 		queue.add(root);
 
@@ -167,7 +167,7 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
 	}
 	
 	// Helper function. Insert a node in a tree (EQUAL CASE does nothing)
-	private void insertRecursive(Node current, Node newOne) {
+	private void insertRecursive(E current, E newOne) {
 		if (newOne.getKey() < current.getKey()) {
 			if (current.getLeft() != null) {
 				insertRecursive(current.getLeft(), newOne);

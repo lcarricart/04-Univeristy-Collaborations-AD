@@ -1,7 +1,7 @@
 package zLaboratoy3;
 
-public abstract class Node {
-	private Node parent, left, right;
+public abstract class Node<E extends Node<E>> {
+	private E parent, left, right;
 	private int key; // Our value (key for ordering; if timestamp, its already ordered)
 	
 	public Node(int key) {
@@ -12,27 +12,27 @@ public abstract class Node {
 		return key;
 	}
 	
-	public Node getParent() {
+	public E getParent() {
 		return parent;
 	} 
 	
-	public void setParent(Node parent) {
+	public void setParent(E parent) {
 		this.parent = parent;
 	}
 	
-	public Node getLeft() {
+	public E getLeft() {
 		return left;
 	}
 	
-	public void setLeft(Node left) {
+	public void setLeft(E left) {
 		this.left= left;
 	}
 	
-	public Node getRight() {
+	public E getRight() {
 		return right;
 	}
 	
-	public void setRight(Node right) {
+	public void setRight(E right) {
 		this.right = right;
 	}
 }
