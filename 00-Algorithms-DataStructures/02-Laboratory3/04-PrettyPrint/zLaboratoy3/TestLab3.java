@@ -27,35 +27,53 @@ public class TestLab3 {
 		myTree.insert(point7);
 		myTree.insert(point8);
 		
-		// Print the values using an iterator (in-order printing)
 		//myTree.printLevelOrder();
 		System.out.println("--- Iterator Visualization ---");
-		Iterator<Sensor> it = myTree.iterator();
 		
+		// Print the values using an iterator (in-order printing)
+		Iterator<Sensor> it = myTree.iterator();
 		while (it.hasNext()) {
 			Sensor n = it.next();
 			System.out.println(n.getKey());
 		}
 		
-		// (BEGIN) Print the raw tree in a visually attractive way
+		// Print the raw tree in a visually attractive way
 		myTree.printGrid();
         
-        System.out.println("=== TEST RESULTS ===");
+		// Print "Test Results" to verify that all relevant methods in SortedBinaryTree are working as expected
+        System.out.println("\n--- TEST RESULTS ---");
         
         Sensor minNode = myTree.min();
         Sensor maxNode = myTree.max();
-        System.out.println("MIN Value: " + (minNode != null ? minNode.getKey() : "null") + " (Expected: 1)");
-        System.out.println("MAX Value: " + (maxNode != null ? maxNode.getKey() : "null") + " (Expected: 14)");
+        
+        if (minNode == null) {
+        	System.out.println("MIN Value: " + "null" + " (Expected: 1)");
+        } else {
+        	System.out.println("MIN Value: " + minNode.getKey() + " (Expected: 1)");
+        }
+        
+        if (maxNode == null) {
+        	System.out.println("MAX Value: " + "null" + " (Expected: 14)");
+        } else {
+        	System.out.println("MAX Value: " + maxNode.getKey() + " (Expected: 14)");
+        }
 
         int searchKey = 6;
-        Sensor foundNode = myTree.find(new Sensor("dummy", searchKey));
-        System.out.println("FIND(" + searchKey + "): " + (foundNode != null ? "Found Node with Key " + foundNode.getKey() : "Not Found"));
-
         int missingKey = 99;
+        Sensor foundNode = myTree.find(new Sensor("dummy", searchKey));
         Sensor missingNode = myTree.find(new Sensor("dummy", missingKey));
-        System.out.println("FIND(" + missingKey + "): " + (missingNode != null ? "Found " + missingNode.getKey() : "Correctly returned null"));
-        // (END)
         
+        if (foundNode == null) {
+        	System.out.println("FIND(" + searchKey + "): " + "Not Found");
+        } else {
+        	System.out.println("FIND(" + searchKey + "): " + "Found Node with Key " + foundNode.getKey());
+        }
+
+        if (missingNode == null) {
+        	System.out.println("FIND(" + missingKey + "): " + "Correctly returned null");
+        } else {
+        	System.out.println("FIND(" + missingKey + "): " + "Found " + missingNode.getKey());
+        }
         
         // Test methods for completeness
         testSucc(myTree, 6); // Expected 7
@@ -66,8 +84,13 @@ public class TestLab3 {
 	
 	// Helper for printing successor tests clearly
     private static void testSucc(SortedBinaryTree<Sensor> tree, int key) {
-        Sensor input = new Sensor("temp", key);
+    	Sensor input = new Sensor("temp", key);
         Sensor s = tree.succ(input);
-        System.out.println("SUCC(" + key + "): " + (s != null ? s.getKey() : "null"));
+        
+        if (s == null) {
+        	System.out.println("SUCC(" + key + "): " + "null");
+        } else {
+        	System.out.println("SUCC(" + key + "): " + s.getKey());
+        }
     }
 }
