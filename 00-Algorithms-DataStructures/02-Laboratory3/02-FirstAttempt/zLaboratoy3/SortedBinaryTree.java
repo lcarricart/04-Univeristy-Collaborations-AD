@@ -28,16 +28,14 @@ public class SortedBinaryTree<E> { // Where should this E be defined within this
 	
 public Node succ(Node k) {
 		Node follower = find(k);
-		Node tempNode = follower;
 		
 		if(follower != null) {	
 			while(follower.getParent() != null) {
 				if(follower.getParent().getKey() < follower.getKey()) {
-					tempNode = follower.getParent();
+					follower = follower.getParent();
 				}
-				follower = follower.getParent();
 			}
-			return tempNode;
+			return follower;
 		}
 		else {
 			return null;
