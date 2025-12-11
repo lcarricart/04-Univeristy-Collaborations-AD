@@ -14,18 +14,18 @@ public class TestLab3 {
 	//	sensorData.addDataPoint(new DataPoint(9.0, 0.0, 0.1, 0.99, 0.0, 0.0, 0.0, 20.6));
 	//	sensorData.addDataPoint(new DataPoint(1.0, 0.0, 0.0, 0.98, 0.0, 0.0, 0.0, 20.5));
 		
-		Sensor point1 = new Sensor("something", 10);
-		Sensor point2 = new Sensor("something", 20);
-		Sensor point3 = new Sensor("something", 30);
-		Sensor point4 = new Sensor("something", 5);
+		Sensor point1 = new Sensor("something", 8);
+		Sensor point2 = new Sensor("something", 10);
+		Sensor point3 = new Sensor("something", 3);
+		Sensor point4 = new Sensor("something", 1);
+		Sensor point5 = new Sensor("something", 6);
 		
-		SortedBinaryTree<Sensor> myTree1 = new SortedBinaryTree<Sensor>(point2);
+		SortedBinaryTree<Sensor> myTree = new SortedBinaryTree<Sensor>(point1);
+		myTree.insert(point2);
+		myTree.insert(point3);
+		myTree.insert(point4);
+		myTree.insert(point5);
+		myTree.printLevelOrder();
 		
-		myTree1.insert(point1);
-		myTree1.insert(point3);
-    	myTree1.insert(point4);
-		
-		System.out.println(myTree1.find(point2).getKey());
-		System.out.println("The successor of " + point4.getKey() + " is " + myTree1.succ(point4).getKey());
 	}
 }
