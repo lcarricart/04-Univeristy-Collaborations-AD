@@ -2,7 +2,7 @@ package zLaboratoy3;
 
 public abstract class Node {
 	private Node parent, left, right;
-	private int key; // Our timestamp
+	private int key; // Our value (key for ordering; if timestamp, its already ordered)
 	
 	public Node(int key) {
 		this.key = key;
