@@ -30,24 +30,15 @@ public class TreeIterator<E extends Node<E>> implements Iterator<E> {
 	
 	@Override
 	public boolean hasNext() {
-		if (nextNode != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return nextNode != null;
 	}
 
 	@Override
 	public E next() {
-		E result;
-		
-		if (this.hasNext()) {
-			result = nextNode;
-			nextNode = myTree.succ(nextNode);
-			return result;
-		} else {
-			return null; // The Java Iterator interface typically throws an Exception in this case I believe, but fine for us
-		}
+		E result = nextNode;
+
+		nextNode = myTree.succ(nextNode);
+		return result;
 	}
 
 }

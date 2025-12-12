@@ -1,6 +1,6 @@
 package zLaboratoy3;
 
-public abstract class Node<E extends Node<E>> {
+public abstract class Node<E> {
 	private E parent, left, right;
 	private int key; // Our value (key for ordering; if timestamp, its already ordered)
 	
