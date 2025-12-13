@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class SortedBinaryTree<E extends Node<E>> { // This is a type bound; we accept any Element that extends Node
+public class SortedBinaryTree<E extends Node<E>> implements Iterable<E>{ // This is a type bound; we accept any Element that extends Node
 	private E root;
 	
 	public SortedBinaryTree(E root) {
@@ -53,7 +53,7 @@ public class SortedBinaryTree<E extends Node<E>> { // This is a type bound; we a
         fillGrid(root, 0, 0, rows.get(0).size(), rows);
 
         // Print the grid
-        System.out.println("--- Visual Tree Grid ---\n");
+        System.out.println("\n\n--- Visual Tree Grid ---\n");
         for (List<String> row : rows) {
             for (String cell : row) {
                 System.out.print(cell);
@@ -75,7 +75,7 @@ public class SortedBinaryTree<E extends Node<E>> { // This is a type bound; we a
         fillGrid(node.getRight(), level + 1, mid + 1, right, rows);
     }
 
-    private int getHeight(E node) {
+    public int getHeight(E node) {
         if (node == null) return 0;
         return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
     }
@@ -184,4 +184,29 @@ public class SortedBinaryTree<E extends Node<E>> { // This is a type bound; we a
 			}
 		}
 	}
+	
+    public void balance() {
+
+        List<E> nodes = new ArrayList<>();
+        for (E node : this) {
+            nodes.add(node);
+        }
+
+        this.root = buildBalancedTree(nodes, 0, nodes.size() - 1, null);
+    }
+
+    private E buildBalancedTree(List<E> nodes, int start, int end, E parent) {
+    	
+        if (start <= end) {
+	        int middle = (start + end) / 2;
+	        E node = nodes.get(middle);
+	
+	        node.setParent(parent);
+	        node.setLeft(buildBalancedTree(nodes, start, middle - 1, node));
+	        node.setRight(buildBalancedTree(nodes, middle + 1, end, node));
+	
+	        return node;
+        }
+        return null;
+    }
 }
