@@ -1,4 +1,4 @@
-/*******************************************************************************************************************
+  /*******************************************************************************************************************
  * Objective: implement a Java program that represents a graph structure using both an adjacency matrix and adjacency 
  * lists simultaneously. Additionally, the lab requires developing a visualization component and a pathfinding 
  * algorithm to generate and display cycle-free paths of a specific length.
