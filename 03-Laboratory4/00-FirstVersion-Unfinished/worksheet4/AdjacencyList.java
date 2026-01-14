@@ -4,12 +4,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 // Based on the UML, this class needs NOT to implement the Iterator interface, just know about it
-public class AdjacencyList {
+public class AdjacencyList implements Iterable<Integer>{
 	private LinkedList<Integer> adjacencies;
 	
-	public AdjacencyList(int node) {
+//	public AdjacencyList(int node) {
+//		this.adjacencies = new LinkedList<Integer>();
+//		this.adjacencies.add(node);
+//	}
+	
+	public AdjacencyList() {
 		this.adjacencies = new LinkedList<Integer>();
-		this.adjacencies.add(node);
 	}
 	
 	// (This is the so called getId() method in the UML)

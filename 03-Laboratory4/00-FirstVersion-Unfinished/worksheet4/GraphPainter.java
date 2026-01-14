@@ -134,7 +134,7 @@ public class GraphPainter extends Canvas {
 		
 		// Print all the vertices and their neighbours
 		for (int v = 0; v < g.numOfVertices(); v++) {
-			System.out.print("Neighbors on the corner"+v+":");
+			System.out.print("Neighbors on the corner " + v + ":");
 			AdjacencyList adjList = g.getNeighboursFor(v);
 			for (Integer neighbour: adjList) {
 				System.out.print(" " + neighbour.toString());

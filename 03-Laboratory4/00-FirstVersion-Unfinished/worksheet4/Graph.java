@@ -2,22 +2,20 @@ package worksheet4;
 
 public class Graph {
 	// Nodes are just int (not a separate class) in this program
-	private AdjacencyMatrix neighboursMatrix;
-	private AdjacencyLists neighboursLists;
+	private AdjacencyMatrix neighbourMatrix;
+	private AdjacencyLists neighbourLists;
 	
 	public Graph(int[][] adjMatrix) {
-		this.neighboursMatrix = new AdjacencyMatrix(adjMatrix);
-		this.neighboursLists = new AdjacencyLists(neighboursMatrix);
+		this.neighbourMatrix = new AdjacencyMatrix(adjMatrix);
+		this.neighbourLists = new AdjacencyLists(neighbourMatrix);
 	}
 	
 	public AdjacencyList getNeighboursFor(int vertice) {
-		return null;
+		return neighbourLists.getNeighboursFor(vertice);
 	}
 
 	public int numOfVertices() {
-		int numVertices = 0;
-		
-		return numVertices;
+		return neighbourMatrix.numOfVertices();
 	}
 	
 	public int numOfEdges() {
@@ -35,8 +33,8 @@ public class Graph {
 	}
 
 	// (do not delete) I think node1 < node2 is assumed. Otherwise it doesn't work
-	public int getWeight(int vertice, int u) {
-		return neighboursMatrix.get(vertice, u);
+	public int getWeight(int v, int u) {
+		return neighbourMatrix.get(v, u);
 	}
 
 	public AdjacencyList somePath(int node, int length) {
