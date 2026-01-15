@@ -9,11 +9,9 @@ public class AdjacencyLists {
 		int rows = neighboursMatrix.numOfVertices();
 		
 		for(int i = 0; i < rows; i++) {
-			
 			AdjacencyList adjacencyRow = new AdjacencyList();
 			
 			for(int j = 0; j < rows; j++) {
-				
 				if(neighboursMatrix.get(i, j) == 1) {
 					adjacencyRow.add(j*10);
 				}

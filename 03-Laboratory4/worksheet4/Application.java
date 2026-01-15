@@ -10,7 +10,7 @@
  * 
  * Gottfried's convention:
  * 			- AdjacencyLists class (plural) --> typical AdjacencyList class
- * 			- AdjacencyList class (singular) --> typically nor defined. In my projects it's called AdjacencyRow
+ * 			- AdjacencyList class (singular) --> typically not defined. In my projects it's called AdjacencyRow
  * 
  * Another clear standard (which will not be used in this LAB) is:
  * 	   class Node {
@@ -28,5 +28,5 @@ package worksheet4;
 
 // TODO This is the entry-point of the program
 public class Application {
-
+	
 }

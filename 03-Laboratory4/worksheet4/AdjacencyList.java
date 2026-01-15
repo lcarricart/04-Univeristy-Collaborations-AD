@@ -7,17 +7,17 @@ import java.util.LinkedList;
 public class AdjacencyList implements Iterable<Integer>{
 	private LinkedList<Integer> adjacencies;
 	
-//	public AdjacencyList(int node) {
-//		this.adjacencies = new LinkedList<Integer>();
-//		this.adjacencies.add(node);
-//	}
+	public AdjacencyList(int node) {
+		this.adjacencies = new LinkedList<Integer>();
+		this.adjacencies.add(node);
+	}
 	
 	public AdjacencyList() {
 		this.adjacencies = new LinkedList<Integer>();
 	}
 	
 	// (This is the so called getId() method in the UML)
-	public int getVertex(int index) {
+	public int getVertex(int index) { // index here is correct
 		return adjacencies.get(index);
 	}
 	
